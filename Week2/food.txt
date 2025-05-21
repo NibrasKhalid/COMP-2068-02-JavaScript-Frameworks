@@ -1,0 +1,14 @@
+burgers
+nachos
+burritos
+fries
+shawarma
+lamb kebab
+chicken kebab
+beef stew
+perogis
+lasagna
+pesto pasta
+hotdogs
+granola
+fish tacos
