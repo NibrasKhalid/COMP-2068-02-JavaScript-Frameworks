@@ -12,6 +12,17 @@ function homePage(req,res,next){
     res.write("Welcome to my home page!");
     res.end();
 }
+function logger(req, res,next){
+    console.log(`${req.method} ${req.url}`);
+    next();
+}
+function aboutPage(req, res,next){
+    res.write("Welcome to my about page!");
+    res.end();
+}
 //associate middleware functions with routes
 //globally for all requests
-app.use(homePage);
+app.use(logger);
+// app.use(homePage);
+app.use("/home", homePage);
+app.use("/about", aboutPage)
