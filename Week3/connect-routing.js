@@ -12,12 +12,16 @@ function homePage(req,res,next){
     res.write("Welcome to my home page!");
     res.end();
 }
+function aboutPage(req, res,next){
+    res.write("Welcome to my about page!");
+    res.end();
+}
 function logger(req, res,next){
     console.log(`${req.method} ${req.url}`);
     next();
 }
-function aboutPage(req, res,next){
-    res.write("Welcome to my about page!");
+function notFound(req, res){
+    res.write("<h1>404 Not Found</h1>");
     res.end();
 }
 //associate middleware functions with routes
@@ -26,3 +30,5 @@ app.use(logger);
 // app.use(homePage);
 app.use("/home", homePage);
 app.use("/about", aboutPage)
+//handle not found page because if we add it under logger, it will always show 404 and wont change even if you navigate to /home or /about
+app.use(notFound);
