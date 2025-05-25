@@ -15,16 +15,12 @@ prompt.get(['choice'], function (err, result) {
 
     //for RPS here you will generate computer selection, compare it with user selection and print the result
     let random = Math.random();
-    switch (random) {
-        case random > 0 && random < 0.35:
-            computerChoice = 'Paper';
-            break;
-        case random > 0.35 && random < 0.68:
-            computerChoice = 'Scissors';
-            break;
-        case random > 0.68 && random < 1.01:
-            computerChoice = 'Rock';
-            break;
+    if (random < 0.35) {
+        computerChoice = 'Paper';
+    } else if (random < 0.68) {
+        computerChoice = 'Scissors';
+    } else {
+        computerChoice = 'Rock';
     }
 
     //do something with the value
