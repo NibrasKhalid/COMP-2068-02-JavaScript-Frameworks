@@ -8,7 +8,6 @@ prompt.start();
 //first param is an array of values we want
 //second param is a callback function that will be called when the user finishes entering values
 prompt.get(['choice'], function (err, result) {
-    
     //retrieve the value from the result object by name
     //name must match the one given in array
     let userChoice = result.choice;
@@ -33,30 +32,22 @@ prompt.get(['choice'], function (err, result) {
     console.log("Computer chose: " + computerChoice);
     
     //Checking win conditions
-    switch (userChoice) {
-        case userChoice === computerChoice:
-            console.log("Its a tie!");
-            break;
-        case userChoice === "Rock" && computerChoice === "Scissors":
-            console.log("User win");
-            break;
-        case userChoice === "Scissors" && computerChoice === "Paper":
-            console.log("User win!");
-            break;
-        case userChoice === "Paper" && computerChoice === "Rock":
-            console.log("User win!");
-            break;
-        case userChoice === "Scissors" && computerChoice === "Rock":
-            console.log("Computer wins!");
-            break;
-        case userChoice === "Paper" && computerChoice === "Scissors":
-            console.log("Computer wins!");
-            break;
-        case userChoice === "Rock" && computerChoice === "Paper":
-            console.log("Computer wins!");
-            break;
-        default:
-            console.log("Invalid choice");
+    if(userChoice === computerChoice){
+        console.log("It's a tie!");
+    } else if(userChoice === "Rock" && computerChoice === "Scissors"){
+        console.log("User win");
+    } else if(userChoice === "Scissors" && computerChoice === "Paper"){
+        console.log("User win!");
+    } else if(userChoice === "Paper" && computerChoice === "Rock"){
+        console.log("User win!");
+    } else if(userChoice === "Scissors" && computerChoice === "Rock"){
+        console.log("Computer win!");
+    } else if(userChoice === "Paper" && computerChoice === "Scissors"){
+        console.log("Computer win!");
+    } else if(userChoice === "Rock" && computerChoice === "Paper"){
+        console.log("Computer win!");
+    } else {
+        console.log("Invalid entry");
     }
 
 
