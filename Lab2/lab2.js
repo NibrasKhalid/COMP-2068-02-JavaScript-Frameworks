@@ -14,37 +14,38 @@ prompt.get(['choice'], function (err, result) {
     }
     //retrieve the value from the result object by name
     //name must match the one given in array
-    let userChoice = result.choice.toLowerCase().trim();
-    let computerChoice;
+    let userSelection = result.choice.toLowerCase().trim();
+
+    let computerSelection;
 
     //for RPS here you will generate computer selection, compare it with user selection and print the result
     let random = Math.random();
     if (random < 0.35) {
-        computerChoice = 'paper';
+        computerSelection = 'paper';
     } else if (random < 0.68) {
-        computerChoice = 'scissors';
+        computerSelection = 'scissors';
     } else {
-        computerChoice = 'rock';
+        computerSelection = 'rock';
     }
 
     //do something with the value
-    console.log("You entered: " + userChoice);
-    console.log("Computer chose: " + computerChoice);
+    console.log("You entered: " + userSelection);
+    console.log("Computer chose: " + computerSelection);
     
     //Checking win conditions
-    if(userChoice === computerChoice){
+    if(userSelection === computerSelection){
         console.log("It's a tie!");
-    } else if(userChoice === "rock" && computerChoice === "scissors"){
+    } else if(userSelection === "rock" && computerSelection === "scissors"){
         console.log("User wins!");
-    } else if(userChoice === "scissors" && computerChoice === "paper"){
+    } else if(userSelection === "scissors" && computerSelection === "paper"){
         console.log("User wins!");
-    } else if(userChoice === "paper" && computerChoice === "rock"){
+    } else if(userSelection === "paper" && computerSelection === "rock"){
         console.log("User wins!");
-    } else if(userChoice === "scissors" && computerChoice === "rock"){
+    } else if(userSelection === "scissors" && computerSelection === "rock"){
         console.log("Computer wins!");
-    } else if(userChoice === "paper" && computerChoice === "scissors"){
+    } else if(userSelection === "paper" && computerSelection === "scissors"){
         console.log("Computer wins!");
-    } else if(userChoice === "rock" && computerChoice === "paper"){
+    } else if(userSelection === "rock" && computerSelection === "paper"){
         console.log("Computer wins!");
     } else {
         console.log("Invalid entry");
