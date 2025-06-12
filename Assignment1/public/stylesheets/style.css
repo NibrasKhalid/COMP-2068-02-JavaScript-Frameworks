@@ -1,14 +1,29 @@
 body {
   margin : 0;
   padding: 0px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-family: "Funnel Sans", sans-serif;
 }
 
-a {
-  color: #00B7FF;
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Funnel Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+  
 }
 
+p, li, a {
+  font-family: "Funnel Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 1.2em;
+}
 /*------------------------Footer------------------------*/
+h1 {
+  font-size: 3.5em;
+
+}
 .footer {
   background-color: #212529;
   padding: 20px 0;
@@ -30,4 +45,28 @@ a {
 
 .mb-0 {
   color: #ffffff;
+}
+/*------------------------Contact Page------------------------*/
+
+.mb-4 {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+}
+.contact-form {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+}
+
+.contact-form label {
+  font-weight: 700;
+}
+
+.contact-form .form-control {
+  border-radius: 5px;
+}
+
+.contact-form textarea {
+  resize: none;
 }
