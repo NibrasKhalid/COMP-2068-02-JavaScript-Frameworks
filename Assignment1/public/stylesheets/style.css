@@ -3,15 +3,13 @@ body {
   padding: 0px;
   font-family: "Funnel Sans", sans-serif;
 }
-
 h1, h2, h3, h4, h5, h6 {
   font-family: "Funnel Sans", sans-serif;
   font-optical-sizing: auto;
   font-weight: 700;
   font-style: normal;
-  
+  padding: 10px;
 }
-
 p, li, a {
   font-family: "Funnel Sans", sans-serif;
   font-optical-sizing: auto;
@@ -19,7 +17,9 @@ p, li, a {
   font-style: normal;
   font-size: 1.2em;
 }
-/*------------------------Footer------------------------*/
+
+/*------------------------Layout Footer------------------------*/
+/*------------------------_____________------------------------*/
 h1 {
   font-size: 3.5em;
 
@@ -31,14 +31,12 @@ h1 {
   width: auto;
   height: auto;
 }
-
 .social-icons a {
   color: #ffffff;
   font-size: 1.5rem;
   margin: 0 10px;
   transition: color 0.3s ease;
 }
-
 .social-icons a:hover {
   color: #007bff;
 }
@@ -46,8 +44,10 @@ h1 {
 .mb-0 {
   color: #ffffff;
 }
-/*------------------------Contact Page------------------------*/
 
+
+/*------------------------Contact Page------------------------*/
+/*------------------------_____________------------------------*/
 .mb-4 {
   font-size: 2.5em;
   margin-bottom: 20px;
@@ -58,15 +58,34 @@ h1 {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   padding: 30px;
 }
-
 .contact-form label {
   font-weight: 700;
 }
-
 .contact-form .form-control {
   border-radius: 5px;
 }
-
 .contact-form textarea {
   resize: none;
+}
+.contact-container {
+  margin-top: 20px;
+}
+
+
+/*------------------------Projects Page------------------------*/
+/*------------------------_____________------------------------*/
+.project-h1 {
+  text-align: center;
+  font-size: 2.5em;
+  margin-bottom: 20px;
+  color: #333;
+  font-weight: 600;
+  padding: 10px;
+  border-bottom: 2px solid #212529;
+}
+.project-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
 }
