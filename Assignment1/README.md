@@ -23,12 +23,12 @@ The goal of this website is to showcase my skills and projects i worked on as a 
 
 ## Bootstrap Template References
 Components and ideas used:
-- Responsive Navbar
-- Footer with icons
-- Home page Horizontal Card
-- Cards and card flip animation (customized)
-- Grid system and spacing utilities
-- Form and contact layout
+- [Layout- Responsive Navbar - https://www.w3schools.com/](https://www.w3schools.com/bootstrap5/bootstrap_navbar.php)
+- [Layout- Footer with icons - bootstrapexamples.com](https://bootstrapexamples.com/@omar34/footer-with-social-media-icons)
+- [Home - Layout - bootstrapexamples.com](https://bootstrapexamples.com/@ankit/hero-section-with-an-image)
+- [About- Horizontal Card - getbootstrap.com](https://getbootstrap.com/docs/5.3/components/card/#horizontal)
+- [Projects-Cards and card flip animation - bootstrapexamples.com](https://bootstrapexamples.com/@anonymous/interactive-service-cards-bootstrap-5-3)
+- [Contact-Form and contact layout - bootstrapexamples.com](https://bootstrapexamples.com/@anonymous/contact-us-form)
 
 ## 📌 Repository
 
