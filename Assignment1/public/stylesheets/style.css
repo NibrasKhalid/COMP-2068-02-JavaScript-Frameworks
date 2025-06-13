@@ -2,7 +2,8 @@ body {
   margin : 0;
   padding: 0px;
   font-family: "Funnel Sans", sans-serif;
-  background-color: #64707c;
+  background-color: #e5e7eb;
+
 }
 h1, h2, h3, h4, h5, h6 {
   font-family: "Funnel Sans", sans-serif;
@@ -23,12 +24,10 @@ p, li, a {
 /*------------------------_____________------------------------*/
 h1 {
   font-size: 3.5em;
-
 }
 .footer {
   background-color: #212529;
   padding: 20px 0;
-  margin-top: 30px;
   width: auto;
   height: auto;
 }
@@ -46,11 +45,23 @@ h1 {
   color: #ffffff;
 }
 
-/*------------------------Home Page------------------------*/
+.footer, .navbar {
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+
+}
+
+/*------------------------About Page------------------------*/
 /*------------------------_____________------------------------*/
+.about-img {
+    object-fit: cover;
+
+}
 .box-height {
-  height: 100vh;
+  height: auto;
   width: auto;
+  background-color: #e5e7eb;
+  margin-bottom: 0px;
+  padding-bottom: 50px;
 }
 .home-container {
   display: flex;
@@ -70,7 +81,7 @@ h1 {
 }
 .card p {
   font-size: 1.8em;
-  color: #555;
+  color: #212529;
 }
 .home-h1 {
   text-align: left;
@@ -93,85 +104,19 @@ h1 {
 
 /*------------------------Contact Page------------------------*/
 /*------------------------_____________------------------------*/
-.mb-4 {
-  font-size: 2.5em;
-  margin-bottom: 20px;
+.map-container {
+  height: 400px;
 }
-.contact-form {
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  padding: 30px;
-}
-.contact-form label {
-  font-weight: 700;
-}
-.contact-form .form-control {
-  border-radius: 5px;
-}
-.contact-form textarea {
-  resize: none;
-}
-.contact-container {
-  margin-top: 20px;
-  height: 80vh;
-  width: auto;
-}
-
-
-/* Contact Page Styles */
-.contact-section {
-  padding: 4rem 0;
-}
-
-.contact-section h1 {
-  font-weight: 700;
-  margin-bottom: 1rem;
-}
-
-.contact-section p.lead {
-  font-size: 1.2rem;
-  color: #555;
-}
-
-/* Card Styling for Contact Info */
-.card {
-  border-radius: 12px;
-  transition: box-shadow 0.3s ease;
-}
-
-.card:hover {
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-}
-
-.card-title {
-  font-size: 1.3rem;
-  font-weight: 600;
-  color: #333;
-}
-
-.card p {
-  font-size: 1rem;
-  margin-bottom: 0.8rem;
-}
-
-.card a {
-  color: #0d6efd;
-  text-decoration: none;
-}
-
-.card a:hover {
-  text-decoration: underline;
-}
-
-
 
 /*------------------------Projects Page------------------------*/
 /*------------------------_____________------------------------*/
+.proj-body, .cont-body {
+  background-color: #e5e7eb;
+}
 .project-h1 {
   text-align: center;
   font-size: 2.5em;
-  color: #333;
+  color: #212529;
   font-weight: 600;
   padding: 50px 0px 0px 0px;
 }
@@ -214,7 +159,7 @@ h1 {
 }
 
 .service-card-front {
-  background: linear-gradient(45deg, #6366f1, #8b5cf6);
+  background-color: #e5e7eb;
   color: white;
   display: flex;
   align-items: center;
@@ -225,7 +170,7 @@ h1 {
 
 .service-card-back {
   background: white;
-  color: #1f2937;
+  color: #212529;
   transform: rotateY(180deg);
   padding: 2rem;
   display: flex;
@@ -266,7 +211,7 @@ h1 {
 .hover-lift:hover {
   transform: translateY(-5px);
 }
-/* Flip card front with full image */
+
 .image-card {
   padding: 0;
   background-color: transparent;
@@ -278,6 +223,28 @@ h1 {
 .project-img {
   width: 100%;
   height: 100%;
+  object-fit: cover;
+  border-radius: 15px;
+}
+.a-ref {
+  text-decoration: none;
+  color: white;
+}
+.a-ref:hover {
+  color: white;
+}
+/*------------------------Home Page------------------------*/
+/*------------------------_____________------------------------*/
+.hero {
+  background: linear-gradient(45deg, #6a11cb 0%, #2575fc 100%);
+  color: white;
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+
+.squared {
+  width: auto;
+  height: 90vh;
   object-fit: cover;
   border-radius: 15px;
 }
