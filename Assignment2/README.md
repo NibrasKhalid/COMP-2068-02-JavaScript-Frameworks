@@ -6,7 +6,7 @@ view movie details, and create a list of their favorite series or movies all in 
 
 
 ## Website Link
-**[Visit StreaM]()**  
+**[Visit STREAM]()**  
 
 
 
