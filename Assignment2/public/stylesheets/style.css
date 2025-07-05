@@ -67,7 +67,13 @@ h1, h2, h3, h4, h5, h6 {
   filter: drop-shadow(0 0 6px white);
 }
 /*----------------------------Latest----------------------------*/
-
+.carousel-inner {
+  max-height: 90vh;
+  object-fit: cover;
+}
+.carousel-caption {
+  bottom: 8rem; 
+}
 /*-------------------Movies-Series-Favourites------------------*/
 
 /*----------------------------Log In----------------------------*/
