@@ -27,18 +27,20 @@ h1, h2, h3, h4, h5, h6 {
   font-family: "Poppins", sans-serif;
   font-weight: 300;
 }
-/*--------------Header--------------*/
-.bg-color {
-  background-color: #461BBC;
-  color: white;
+.bg-dark-purple {
+  background-color: #18005C;
+    color: white;
+
 }
-/*--------------Footer--------------*/
-#bg-color-footer {
+.bg-medium-purple {
   background-color: #461BBC;
-  color: white;
+    color: white;
+
 }
-.white {
-  color: white;
+.bg-light-purple {
+  background-color: #673FD4;
+    color: white;
+
 }
 /*----------------------------Index----------------------------*/
 .search-container {
@@ -73,5 +75,7 @@ h1, h2, h3, h4, h5, h6 {
 /*----------------------------Sign Up----------------------------*/
 
 /*----------------------------Contact----------------------------*/
-
+.contact-padding {
+  padding-bottom: 50px;
+}
 

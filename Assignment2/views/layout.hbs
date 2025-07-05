@@ -5,20 +5,23 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
     rel="stylesheet">
   <!-- Font Awesome -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
   <!--BOOTSTRAP CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://unpkg.com/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/bs-brain@2.0.4/components/contacts/contact-1/assets/css/contact-1.css">
   <!-- Custom CSS -->
   <link rel="stylesheet" href="/stylesheets/style.css" />
 </head>
 
 <body>
   <!-- Navbar -->
-  <header class="p-3 bg-color text-white sticky-top shadow-lg">
+  <header class="p-3 bg-medium-purple text-white sticky-top shadow-lg">
     <div class="container">
       <nav class="navbar navbar-expand-lg navbar-dark">
         <a href="/" class="navbar-brand d-flex align-items-center me-3">
@@ -35,11 +38,11 @@
         <div class="collapse navbar-collapse" id="navbarContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item"><a class="nav-link px-2 text-white" href="/">Home</a></li>
-            <li class="nav-item"><a class="nav-link px-2 text-white" href="./latest.hbs">Latest</a></li>
+            <li class="nav-item"><a class="nav-link px-2 text-white" href="./latest">Latest</a></li>
             <li class="nav-item"><a class="nav-link px-2 text-white" href="/">Movies</a></li>
             <li class="nav-item"><a class="nav-link px-2 text-white" href="/">Series</a></li>
             <li class="nav-item"><a class="nav-link px-2 text-white" href="/">Favorites</a></li>
-            <li class="nav-item"><a class="nav-link px-2 text-white" href="./contact.hbs">Contact</a></li>
+            <li class="nav-item"><a class="nav-link px-2 text-white" href="./contact">Contact</a></li>
           </ul>
 
           <form class="d-flex mb-3 mb-lg-0 me-lg-3" role="search">
@@ -48,8 +51,8 @@
           </form>
 
           <div class="text-end">
-            <a href="./login.hbs" type="button" class="btn btn-outline-light me-2">Login</a>
-            <a href="./signup.hbs" type="button" class="btn btn-warning">Sign-up</a>
+            <a href="./login" type="button" class="btn btn-outline-light me-2">Login</a>
+            <a href="./signup" type="button" class="btn btn-warning">Sign-up</a>
           </div>
         </div>
       </nav>
@@ -58,12 +61,12 @@
 
   {{{body}}}
 
-  <div id="bg-color-footer" class="container-fluid shadow-lg">
+  <div class="container-fluid shadow-lg bg-medium-purple">
     <footer class="py-3">
       <ul class="nav justify-content-center border-bottom pb-3 mb-3">
         <li class="nav-item"><a href="/" class="nav-link px-2 text-white">Home</a></li>
-        <li class="nav-item"><a href="./latest.hbs" class="nav-link px-2 text-white">Latest</a></li>
-        <li class="nav-item"><a href="./contact.hbs" class="nav-link px-2 text-white">Contact</a></li>
+        <li class="nav-item"><a href="./latest" class="nav-link px-2 text-white">Latest</a></li>
+        <li class="nav-item"><a href="./contact" class="nav-link px-2 text-white">Contact</a></li>
       </ul>
       <p class="text-center text-white">&copy; STREAM</p>
     </footer>
