@@ -4,12 +4,10 @@ html {
 body {
   margin: 0px;
   padding: 0px;
-  height: 100%;
   font-size: 16px;
   font-family: "Poppins", sans-serif;
   background-color: #461BBC;
   color: white;
-
 }
 .poppins-extralight {
   font-family: "Poppins", sans-serif;
@@ -18,20 +16,18 @@ body {
 }
 p, a, li {
   font-family: "Poppins", sans-serif;
-  font-weight: 300;
+  font-weight: 200;
+  font-size: 18px;
 }
 h1, h2, h3, h4, h5, h6 {
   font-family: "Montserrat", sans-serif;
   font-weight: 500;
 }
-.testing {
-  margin: 400px;
-}
 .btn {
   font-family: "Poppins", sans-serif;
   font-weight: 300;
 }
-/*--------------Navigation--------------*/
+/*--------------Header--------------*/
 .bg-color {
   background-color: #461BBC;
   color: white;
@@ -45,7 +41,29 @@ h1, h2, h3, h4, h5, h6 {
   color: white;
 }
 /*----------------------------Index----------------------------*/
-
+.search-container {
+    position: relative;
+}
+.search-input {
+    height: 50px;
+    border-radius: 30px;
+    padding-left: 35px;
+    border: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.search-icon {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    color: #888;
+}
+.padding-index {
+  margin: 20px;
+}
+.logo-glow {
+  filter: drop-shadow(0 0 6px white);
+}
 /*----------------------------Latest----------------------------*/
 
 /*-------------------Movies-Series-Favourites------------------*/
