@@ -18,8 +18,12 @@ view movie details, and create a list of their favorite series or movies all in 
 
 
 ## Bootstrap Template References
-
+#### Shared
 - [Header](https://getbootstrap.com/docs/5.3/examples/headers/)
 - [Footer](https://getbootstrap.com/docs/5.3/examples/footers/)
+#### Index
+- [Hero Image](https://mdbootstrap.com/docs/standard/extended/hero/)
+- [Search Bar](https://bootstrapexamples.com/@anonymous/search-bar)
+
 
 
