@@ -24,6 +24,8 @@ view movie details, and create a list of their favorite series or movies all in 
 #### Index
 - [Hero Image](https://mdbootstrap.com/docs/standard/extended/hero/)
 - [Search Bar](https://bootstrapexamples.com/@anonymous/search-bar)
+### Latest
+- [Carousel](https://getbootstrap.com/docs/5.3/components/carousel/)
 ### Contact 
 - [Contact Form](https://bootstrapbrain.com/demo/components/contacts/contact-1/)
 
