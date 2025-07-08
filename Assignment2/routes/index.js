@@ -13,7 +13,7 @@ router.get('/contact', (req, res, next) => {
 
 /* GET latest page. */
 router.get('/latest', (req, res, next) => {
-  res.render('latest')
+  res.render('latest', { title: 'Latest' })
 });
 
 /* GET login page. */
