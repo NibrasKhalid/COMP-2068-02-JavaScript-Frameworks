@@ -7,8 +7,16 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
-var configs= require('./configs/global');
+// Import mongoose and configurations onjects
+var configs= require('./configs/global');   // ./ means root directory
 var mongoose = require('mongoose');
+
+// Import passport and session modules
+var session = require('express-session');
+var passport = require('passport');
+
+// Initialize user model and cofigure passport
+var User = require('./models/user'); 
 
 var app = express();
 
@@ -16,11 +24,29 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
+// Middleware configurations
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// initialize session
+app.use(session({
+  secret: "StreamSecret",
+  resave: false,
+  saveUninitialized: true,
+}));
+
+// initialize passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
+// initialize basic strategy
+passport.use(User.createStrategy());
+// serialize/deserialize user (read/write to session)
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
