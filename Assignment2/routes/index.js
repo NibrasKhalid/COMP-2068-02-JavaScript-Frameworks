@@ -19,6 +19,25 @@ router.get('/latest', (req, res, next) => {
   res.render('latest', { title: 'Latest' })
 });
 
+/* GET movies page */
+router.get('/movies', (req, res, next) => {
+  const movies = [/* movie objects */]; // Replace with TMDB or mock data
+  res.render('search', { title: 'Movies', items: movies, user: req.user });
+});
+
+/* GET series page */
+router.get('/series', (req, res, next) => {
+  const series = [/* series objects */];
+  res.render('search', { title: 'TV Series', items: series, user: req.user });
+});
+
+/* GET favorites page */
+router.get('/favorites', (req, res, next) => {
+  const favorites = [/* user's favorite items */];
+  res.render('search', { title: 'Favorites', items: favorites, isFavoritesPage: true, user: req.user });
+});
+
+
 /* GET login page. */
 router.get('/login', (req, res, next) => {
   res.render('login', { title: 'Login' })

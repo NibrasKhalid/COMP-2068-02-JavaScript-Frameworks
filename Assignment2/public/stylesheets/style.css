@@ -81,7 +81,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 .content__shows div {
   position: relative;
-  width: 200px;
+  width: 150px;
   border-radius: 4px;
   overflow: hidden;
   margin: 0 auto;
@@ -121,10 +121,6 @@ h1, h2, h3, h4, h5, h6 {
 .content__shows div:hover .name,
 .content__shows div:hover .title-box {
   transform: translatey(0);
-}
-.heading-latest {
-  text-align: left;
-  margin: 20px 50px;
 }
 /*-------------------Movies-Series-Favourites------------------*/
 
