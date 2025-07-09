@@ -26,6 +26,11 @@ view movie details, and create a list of their favorite series or movies all in 
 - [Search Bar](https://bootstrapexamples.com/@anonymous/search-bar)
 ### Latest
 - [Carousel](https://getbootstrap.com/docs/5.3/components/carousel/)
+- [Movie Card](https://dev.to/tilakjain123/animated-movie-card-w-html-and-css-ekh)
+### Log-In Form
+- [Form](https://mdbootstrap.com/docs/standard/extended/login/)
+### Sign-In Form
+- [Form](https://mdbootstrap.com/docs/standard/extended/registration/)
 ### Contact 
 - [Contact Form](https://bootstrapbrain.com/demo/components/contacts/contact-1/)
 
