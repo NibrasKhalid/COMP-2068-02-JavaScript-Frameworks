@@ -1,6 +1,7 @@
 html {
   scroll-behavior: smooth;
 }
+
 body {
   margin: 0px;
   padding: 0px;
@@ -9,76 +10,99 @@ body {
   background-color: #673FD4;
   color: white;
 }
+
 .poppins-extralight {
   font-family: "Poppins", sans-serif;
   font-weight: 200;
   font-style: normal;
 }
-p, a, li {
+
+p,
+a,
+li {
   font-family: "Poppins", sans-serif;
   font-weight: 200;
   font-size: 18px;
 }
-h1, h2, h3, h4, h5, h6 {
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: "Montserrat", sans-serif;
   font-weight: 500;
 }
+
 .btn {
   font-family: "Poppins", sans-serif;
   font-weight: 300;
 }
+
 .bg-dark-purple {
   background-color: #18005C;
-    color: white;
+  color: white;
 
 }
+
 .bg-medium-purple {
   background-color: #461BBC;
-    color: white;
+  color: white;
 
 }
+
 .bg-light-purple {
   background-color: #673FD4;
-    color: white;
+  color: white;
 
 }
+
 /*----------------------------Index----------------------------*/
 .search-container {
-    position: relative;
+  position: relative;
 }
+
 .search-input {
-    height: 50px;
-    border-radius: 30px;
-    padding-left: 35px;
-    border: none;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  height: 50px;
+  border-radius: 30px;
+  padding-left: 35px;
+  border: none;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+
 .search-icon {
-    position: absolute;
-    top: 50%;
-    left: 15px;
-    transform: translateY(-50%);
-    color: #888;
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  transform: translateY(-50%);
+  color: #888;
 }
+
 .padding-index {
   margin: 20px;
 }
+
 .logo-glow {
   filter: drop-shadow(0 0 6px white);
 }
+
 /*----------------------------Latest----------------------------*/
 .carousel-inner {
   max-height: 90vh;
   object-fit: cover;
 }
+
 .carousel-caption {
-  bottom: 8rem; 
+  bottom: 8rem;
 }
+
 .content__shows {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
 }
+
 .content__shows div {
   position: relative;
   width: 150px;
@@ -86,9 +110,11 @@ h1, h2, h3, h4, h5, h6 {
   overflow: hidden;
   margin: 0 auto;
 }
+
 .content__shows div:hover img {
   transform: scale(1.15);
 }
+
 .content__shows div .title-box {
   content: "";
   height: 100px;
@@ -101,12 +127,14 @@ h1, h2, h3, h4, h5, h6 {
   width: 100%;
   z-index: 1;
 }
+
 .content__shows div img {
   object-fit: cover;
   height: 100%;
   width: 100%;
   transition: 0.3s ease;
 }
+
 .content__shows div .name {
   position: absolute;
   width: 100%;
@@ -118,18 +146,29 @@ h1, h2, h3, h4, h5, h6 {
   transition: .3s ease;
   cursor: default;
 }
+
 .content__shows div:hover .name,
 .content__shows div:hover .title-box {
   transform: translatey(0);
 }
+
 /*-------------------Movies-Series-Favourites------------------*/
 
 /*----------------------------Log In----------------------------*/
-
+.no-ul {
+  text-decoration: none;
+  color: #fff; /* initial color */
+  padding: 10px;
+  display: inline-block;
+  transition: color 0.3s ease;
+}
+.no-ul:hover .fa-github,
+.no-ul:hover .fa-google {
+  color: #18005C; /* Light gray or any hover color for GitHub */
+}
 /*----------------------------Sign Up----------------------------*/
 
 /*----------------------------Contact----------------------------*/
 .contact-padding {
   padding-bottom: 50px;
 }
-

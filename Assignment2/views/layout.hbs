@@ -45,15 +45,24 @@
             <li class="nav-item"><a class="nav-link px-2 text-white" href="./contact">Contact</a></li>
           </ul>
 
-          <form class="d-flex mb-3 mb-lg-0 me-lg-3" role="search">
-            <input type="search" class="form-control form-control-dark poppins-extralight" placeholder="Search..."
+          <form class="d-flex mb-3 mb-lg-0 me-lg-3" role="search" action="/search" method="GET">
+            <input name="q" type="search" class="form-control form-control-dark poppins-extralight" placeholder="Search..."
               aria-label="Search">
           </form>
+          {{#if user}}
+          {{!-- If user is logged in, show profile and logout options --}}
+          <div class="text-end">
+            <a href="#" type="button" class="btn text-white me-2">{{user.username}}</a>
+            <a href="./logout" type="button" class="btn btn-danger">Log Out</a>
+          </div>
 
+          {{!-- If user is not logged in, show login and signup buttons --}}
+          {{else}}
           <div class="text-end">
             <a href="./login" type="button" class="btn btn-outline-light me-2">Login</a>
-            <a href="./signup" type="button" class="btn btn-warning">Sign-up</a>
+            <a href="./signup" type="button" class="btn btn-warning">Signup</a>
           </div>
+          {{/if}}
         </div>
       </nav>
     </div>
