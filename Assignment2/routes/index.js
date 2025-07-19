@@ -2,7 +2,8 @@ var express = require("express");
 var router = express.Router();
 var User = require("../models/user"); // ../ to move up one directory
 var passport = require("passport");
-
+const Contact = require("../models/contact");
+var axios = require("axios");
 
 /* GET home page. */
 router.get("/", function (req, res, next) {
@@ -33,6 +34,14 @@ router.get("/series", (req, res, next) => {
     /* series objects */
   ];
   res.render("search", { title: "TV Series", items: series, user: req.user });
+});
+
+/* GET info page. */
+router.get('/info', (req, res) => {
+    res.render('info', { 
+        title: 'Movie/Show Info',
+        user: req.user,
+    });
 });
 
 /* GET favorites page */
@@ -125,9 +134,58 @@ router.get(
   }
 );
 
-/* GET handler for search bar NAV */
+/* GET handler for search bar */
+router.get("/search", async (req, res, next) => {
+  const query = req.query.q;
 
+  if (!query) {
+    return res.render("search", { title: "Search", items: [], user: req.user });
+  }
+
+  try {
+    const response = await axios.get("https://api.themoviedb.org/3/search/multi", {
+      params: {
+        api_key: process.env.TMDB_API_KEY,
+        query: query,
+      },
+    });
+
+    const items = response.data.results
+      .filter(item => item.poster_path && (item.media_type === "movie" || item.media_type === "tv"))
+      .map(item => ({
+        title: item.title || item.name,
+        poster: `https://image.tmdb.org/t/p/w500${item.poster_path}`,
+      }));
+
+    res.render("search", {
+      title: `Search Results for "${query}"`,
+      items,
+      user: req.user,
+    });
+  } catch (error) {
+    console.error("TMDB search error:", error);
+    next(error);
+  }
+});
 
 /* POST contact page. */
+router.post("/contact", async (req, res, next) => {
+  const { fullname, email, phone, message } = req.body;
+
+  try {
+    const newContact = new Contact({ fullname, email, phone, message });
+    await newContact.save();
+
+    res.render("contact", {
+      title: "Contact",
+      user: req.user,
+      successMessage: "Thanks for your message! We'll get back to you soon.",
+    });
+  } catch (error) {
+    console.error("Error saving contact form:", error);
+    next(error); 
+  }
+});
+
 
 module.exports = router;

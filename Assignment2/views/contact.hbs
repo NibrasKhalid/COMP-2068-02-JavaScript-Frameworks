@@ -1,4 +1,16 @@
 <!-- Contact 1 - Bootstrap Brain Component -->
+{{#if successMessage}}
+  <div class="alert alert-success text-center" role="alert">
+    {{successMessage}}
+  </div>
+{{/if}}
+
+{{#if errorMessage}}
+  <div class="alert alert-danger text-center" role="alert">
+    {{errorMessage}}
+  </div>
+{{/if}}
+
 <section class="bg-transparent py-3 py-md-5">
     <div class="container">
         <div class="row justify-content-md-center">
@@ -10,12 +22,11 @@
             </div>
         </div>
     </div>
-
     <div class="container contact-padding">
         <div class="row justify-content-lg-center">
             <div class="col-12 col-lg-9">
                 <div class="bg bg-dark-purple rounded shadow-sm overflow-hidden">
-                    <form action="#!">
+                    <form action="/contact" method="POST">
                         <div class="row gy-4 gy-xl-5 p-4 p-xl-5">
                             <div class="col-12">
                                 <label for="fullname" class="form-label">Full Name <span

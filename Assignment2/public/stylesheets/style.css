@@ -7,7 +7,7 @@ body {
   padding: 0px;
   font-size: 16px;
   font-family: "Poppins", sans-serif;
-  background-color: #673FD4;
+  background-color: #673fd4;
   color: white;
 }
 
@@ -23,6 +23,8 @@ li {
   font-family: "Poppins", sans-serif;
   font-weight: 200;
   font-size: 18px;
+  color: #fefefe;
+  text-decoration: none;
 }
 
 h1,
@@ -41,21 +43,18 @@ h6 {
 }
 
 .bg-dark-purple {
-  background-color: #18005C;
+  background-color: #18005c;
   color: white;
-
 }
 
 .bg-medium-purple {
-  background-color: #461BBC;
+  background-color: #461bbc;
   color: white;
-
 }
 
 .bg-light-purple {
-  background-color: #673FD4;
+  background-color: #673fd4;
   color: white;
-
 }
 
 /*----------------------------Index----------------------------*/
@@ -86,7 +85,13 @@ h6 {
 .logo-glow {
   filter: drop-shadow(0 0 6px white);
 }
-
+.masthead {
+  background-image: url("/images/masthead.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 91vh;
+  position: relative;
+}
 /*----------------------------Latest----------------------------*/
 .carousel-inner {
   max-height: 90vh;
@@ -143,7 +148,7 @@ h6 {
   transform: translatey(50px);
   padding: 10px;
   z-index: 10;
-  transition: .3s ease;
+  transition: 0.3s ease;
   cursor: default;
 }
 
@@ -152,20 +157,79 @@ h6 {
   transform: translatey(0);
 }
 
-/*-------------------Movies-Series-Favourites------------------*/
+/*-------------------Search-Movies-Series-Favourites------------------*/
+.content__shows {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
 
-/*----------------------------Log In----------------------------*/
-.no-ul {
-  text-decoration: none;
-  color: #fff; /* initial color */
-  padding: 10px;
-  display: inline-block;
-  transition: color 0.3s ease;
+.card-link {
+    display: block; /* Make the anchor tag behave like a block element */
+    text-decoration: none; /* Remove underline */
+    color: inherit; /* Inherit text color */
 }
-.no-ul:hover .fa-github,
-.no-ul:hover .fa-google {
-  color: #18005C; /* Light gray or any hover color for GitHub */
+
+.content__shows .card-item {
+    position: relative;
+    width: 150px;
+    border-radius: 4px;
+    overflow: hidden;
+    margin: 0 auto;
+    transition: 0.3s ease;
+    cursor: pointer;
 }
+
+.content__shows .card-item:hover img {
+    transform: scale(1.15);
+    filter: brightness(0.7);
+}
+
+.content__shows .card-item .title-box {
+    content: "";
+    height: 100px;
+    position: absolute;
+    transform: translatey(100%);
+    transition: 0.3s ease;
+    left: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7));
+    width: 100%;
+    z-index: 1;
+    opacity: 0;
+}
+
+.content__shows .card-item img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+    transition: 0.3s ease;
+}
+
+.content__shows .card-item .name {
+    position: absolute;
+    width: 100%;
+    bottom: 10px;
+    color: #fff;
+    transform: translatey(100%);
+    padding: 10px;
+    z-index: 10;
+    transition: 0.3s ease;
+    opacity: 0;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+.content__shows .card-item:hover .name,
+.content__shows .card-item:hover .title-box {
+    transform: translatey(0);
+    opacity: 1;
+}
+/*----------------------------Info----------------------------*/
+
+.h-card {
+  max-width: 60%;
+}
+
 /*----------------------------Sign Up----------------------------*/
 
 /*----------------------------Contact----------------------------*/

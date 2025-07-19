@@ -1,41 +1,14 @@
 <div class="container pb-5">
     <h1 class="m-4 display-5 text-left">{{{title}}}</h1>
     <div class="content__shows">
-        <!-- card here -->
-        <div><img src="https://meowlivia.s3.us-east-2.amazonaws.com/codepen/avengers/p-captmarvel.jpg"
-                alt="Movie Poster" />
-            <div class="title-box"></div>
-            <div class="name">Captain Marvel</div>
-        </div>
-        <div><img src="https://meowlivia.s3.us-east-2.amazonaws.com/codepen/avengers/p-captmarvel.jpg"
-                alt="Movie Poster" />
-            <div class="title-box"></div>
-            <div class="name">Captain Marvel</div>
-        </div>
-        <div><img src="https://meowlivia.s3.us-east-2.amazonaws.com/codepen/avengers/p-captmarvel.jpg"
-                alt="Movie Poster" />
-            <div class="title-box"></div>
-            <div class="name">Captain Marvel</div>
-        </div>
-        <div><img src="https://meowlivia.s3.us-east-2.amazonaws.com/codepen/avengers/p-captmarvel.jpg"
-                alt="Movie Poster" />
-            <div class="title-box"></div>
-            <div class="name">Captain Marvel</div>
-        </div>
-        <div><img src="https://meowlivia.s3.us-east-2.amazonaws.com/codepen/avengers/p-captmarvel.jpg"
-                alt="Movie Poster" />
-            <div class="title-box"></div>
-            <div class="name">Captain Marvel</div>
-        </div>
-        <div><img src="https://meowlivia.s3.us-east-2.amazonaws.com/codepen/avengers/p-captmarvel.jpg"
-                alt="Movie Poster" />
-            <div class="title-box"></div>
-            <div class="name">Captain Marvel</div>
-        </div>
-        <div><img src="https://meowlivia.s3.us-east-2.amazonaws.com/codepen/avengers/p-captmarvel.jpg"
-                alt="Movie Poster" />
-            <div class="title-box"></div>
-            <div class="name">Captain Marvel</div>
-        </div>
+        {{#each items}}
+        <a href="/info" class="card-link">  <!-- Added anchor tag -->
+            <div class="card-item">  <!-- Added card-item class -->
+                <img src="{{this.poster}}" alt="Movie Poster" />
+                <div class="title-box"></div>
+                <div class="name">{{this.title}}</div>
+            </div>
+        </a>
+        {{/each}}
     </div>
 </div>
