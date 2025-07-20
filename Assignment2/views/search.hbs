@@ -2,8 +2,8 @@
     <h1 class="m-4 display-5 text-left">{{{title}}}</h1>
     <div class="content__shows">
         {{#each items}}
-        <a href="/info" class="card-link">  <!-- Added anchor tag -->
-            <div class="card-item">  <!-- Added card-item class -->
+        <a href="/info/{{this.id}}" class="card-link">  
+            <div class="card-item">
                 <img src="{{this.poster}}" alt="Movie Poster" />
                 <div class="title-box"></div>
                 <div class="name">{{this.title}}</div>
