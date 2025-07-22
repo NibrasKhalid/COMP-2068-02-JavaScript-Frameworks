@@ -37,50 +37,52 @@ router.get("/series", (req, res, next) => {
 });
 
 /* GET info page. */
-router.get('/info/:id', async (req, res) => {
-    try {
-        // First make sure we have the ID
-        const itemId = req.params.id;
-        if (!itemId) {
-            return res.status(400).render('info', {
-                title: 'Error',
-                message: 'No item ID provided',
-                user: req.user
-            });
-        }
+router.get('/info/:type/:id', async (req, res) => {
+  const { type, id: itemId } = req.params;
 
-        // Fetch item details from TMDB
-        const response = await axios.get(`https://api.themoviedb.org/3/movie/${itemId}`, {
-            params: {
-                api_key: process.env.TMDB_API_KEY
-            }
-        });
+  // Validate both parameters
+  if (!itemId || !['movie', 'tv'].includes(type)) {
+    return res.status(400).render('info', {
+      title: 'Error',
+      message: 'Invalid ID or type.',
+      user: req.user
+    });
+  }
 
-        const item = response.data;
-        
-        res.render('info', {
-            title: item.title || item.name,
-            poster: item.poster_path ? `https://image.tmdb.org/t/p/w500${item.poster_path}` : '/images/placeholder.jpg',
-            type: 'Movie', // Default to movie, you might want to detect this
-            genre: item.genres ? item.genres.map(g => g.name).join(', ') : 'Unknown',
-            duration: item.runtime ? `${item.runtime} min` : 'N/A',
-            description: item.overview || 'No description available',
-            releaseDate: item.release_date || 'Unknown',
-            rating: item.vote_average ? item.vote_average.toFixed(1) : 'N/A',
-            country: item.production_countries && item.production_countries.length > 0 
-                    ? item.production_countries[0].name 
-                    : 'Unknown',
-            user: req.user
-        });
+  try {
+    const response = await axios.get(`https://api.themoviedb.org/3/${type}/${itemId}`, {
+      params: { api_key: process.env.TMDB_API_KEY }
+    });
 
-    } catch (error) {
-        console.error("Error fetching item details:", error);
-        res.status(500).render('info', {
-            title: 'Error',
-            message: 'Could not load item details',
-            user: req.user
-        });
-    }
+    const item = response.data;
+
+    res.render('info', {
+      title: item.title || item.name,
+      poster: item.poster_path
+        ? `https://image.tmdb.org/t/p/w500${item.poster_path}`
+        : '/images/placeholder.jpg',
+      type: type === 'tv' ? 'TV Series' : 'Movie',
+      genre: item.genres ? item.genres.map(g => g.name).join(', ') : 'Unknown',
+      duration: item.runtime
+        ? `${item.runtime} min`
+        : item.episode_run_time
+        ? `${item.episode_run_time[0]} min`
+        : 'N/A',
+      description: item.overview || 'No description available',
+      releaseDate: item.release_date || item.first_air_date || 'Unknown',
+      rating: item.vote_average ? item.vote_average.toFixed(1) : 'N/A',
+      country: item.production_countries?.[0]?.name || item.origin_country?.[0] || 'Unknown',
+      user: req.user
+    });
+
+  } catch (error) {
+    console.error("Error fetching item details:", error.message);
+    res.status(500).render('info', {
+      title: 'Error',
+      message: 'Could not load item details.',
+      user: req.user
+    });
+  }
 });
 
 /* GET favorites page */
@@ -162,7 +164,10 @@ router.get(
 );
 
 /* GET handler for /google. */
-router.get("/google", passport.authenticate("google", { scope: ["profile", "email"] }));
+router.get(
+  "/google",
+  passport.authenticate("google", { scope: ["profile", "email"] })
+);
 
 /* GET handler for /google/callback */
 router.get(
@@ -175,50 +180,52 @@ router.get(
 
 /* GET handler for search bar */
 router.get("/search", async (req, res, next) => {
-    const query = req.query.q;
+  const query = req.query.q;
 
-    if (!query) {
-        return res.render("search", { 
-            title: "Search", 
-            items: [], 
-            user: req.user 
-        });
-    }
+  if (!query) {
+    return res.render("search", {
+      title: "Search",
+      items: [],
+      user: req.user
+    });
+  }
 
-    try {
-        // Make the API request and wait for response
-        const response = await axios.get("https://api.themoviedb.org/3/search/multi", {
-            params: {
-                api_key: process.env.TMDB_API_KEY,
-                query: query,
-            }
-        });
+  try {
+    const response = await axios.get("https://api.themoviedb.org/3/search/multi", {
+      params: {
+        api_key: process.env.TMDB_API_KEY,
+        query: query,
+      },
+    });
 
-        // Process the response data
-        const items = response.data.results
-            .filter(item => item.poster_path && (item.media_type === "movie" || item.media_type === "tv"))
-            .map(item => ({
-                id: item.id,
-                title: item.title || item.name,
-                poster: `https://image.tmdb.org/t/p/w500${item.poster_path}`,
-                media_type: item.media_type
-            }));
+    const items = response.data.results
+      .filter(
+        (item) =>
+          item.poster_path &&
+          (item.media_type === "movie" || item.media_type === "tv")
+      )
+      .map((item) => ({
+        id: item.id,
+        title: item.title || item.name,
+        poster: `https://image.tmdb.org/t/p/w500${item.poster_path}`,
+        media_type: item.media_type === "tv" ? "tv" : "movie"
+      }));
 
-        res.render("search", {
-            title: `Search Results for "${query}"`,
-            items,
-            user: req.user,
-        });
-    } catch (error) {
-        console.error("TMDB search error:", error);
-        // Render error page or same page with error message
-        res.render("search", {
-            title: "Search Error",
-            items: [],
-            user: req.user,
-            error: "Failed to fetch search results"
-        });
-    }
+    res.render("search", {
+      title: `Search Results for "${query}"`,
+      items,
+      user: req.user,
+    });
+
+  } catch (error) {
+    console.error("TMDB search error:", error);
+    res.render("search", {
+      title: "Search Error",
+      items: [],
+      user: req.user,
+      error: "Failed to fetch search results",
+    });
+  }
 });
 
 /* POST contact page. */
@@ -236,9 +243,8 @@ router.post("/contact", async (req, res, next) => {
     });
   } catch (error) {
     console.error("Error saving contact form:", error);
-    next(error); 
+    next(error);
   }
 });
-
 
 module.exports = router;

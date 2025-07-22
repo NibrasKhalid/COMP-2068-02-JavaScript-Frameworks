@@ -231,10 +231,6 @@ h6 {
 }
 
 /*----------------------------Info----------------------------*/
-
-
-
-/* Info Page Styles */
 .info-card {
   width: 90vw;
   margin: 2rem auto;
@@ -242,19 +238,19 @@ h6 {
 }
 
 .info-row {
-    background-color: #18005c;
-
+  background-color: #18005c;
   height: auto;
   width: auto;
 }
 
 .info-poster-col {
-  height: 60vh;
+  height: auto;
   width: auto;
 }
 
 .info-poster-img {
-  width: auto;
+  width: 100%;
+  max-width: 300px;
   height: 100%;
   object-fit: cover;
   object-position: center;
@@ -264,8 +260,6 @@ h6 {
   color: white;
   padding: 1.5rem;
 }
-
-/* Responsive adjustments */
 @media (max-width: 768px) {
   .info-card {
     width: 95vw;
