@@ -5,6 +5,9 @@ var passport = require("passport");
 const Contact = require("../models/contact");
 var axios = require("axios");
 
+const today = new Date().toISOString().split('T')[0];
+
+
 /* GET home page. */
 router.get("/", function (req, res, next) {
   res.render("index", { user: req.user });
@@ -22,15 +25,15 @@ router.get("/latest", (req, res, next) => {
 
 /* GET movies page */
 router.get("/movies", async (req, res) => {
-  const today = new Date().toISOString().split('T')[0];
   const movies = [];
 
-  // Get pageCount from query, default to 3
+  // this gets the page count from query or just uses default as 3
   const pageCount = parseInt(req.query.page) || 3;
 
   try {
     for (let i = 1; i <= pageCount; i++) {
-      const url = `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.TMDB_API_KEY}&include_adult=false&include_video=false&language=en-US&page=${i}&sort_by=release_date.desc&release_date.lte=${today}`;
+      // fetch movies from the TMDB API and filters them by release date
+      const url = `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.TMDB_API_KEY}&include_adult=false&page=${i}&sort_by=release_date.desc&release_date.lte=${today}`;
       const response = await axios.get(url);
       const results = response.data.results;
 
@@ -40,17 +43,20 @@ router.get("/movies", async (req, res) => {
             id: movie.id,
             title: movie.title,
             poster: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
-            media_type: "movie"
+            media_type: "movie",
+            isMoviesPage: true
           });
         }
       });
     }
 
+    // adds movies from the next page
     res.render("search", {
       title: "Movies",
       items: movies,
       user: req.user,
-      nextPage: pageCount + 3 
+      nextPage: pageCount + 1,
+      isMoviesPage: true
     });
 
   } catch (err) {
@@ -66,12 +72,50 @@ router.get("/movies", async (req, res) => {
 });
 
 /* GET series page */
-router.get("/series", (req, res, next) => {
-  const series = [
-    /* series objects */
-  ];
-  res.render("search", { title: "TV Series", items: series, user: req.user });
+router.get("/series", async (req, res) => {
+  const series = [];
+  const pageCount = parseInt(req.query.page) || 3;
+
+  try {
+    for (let i = 1; i <= pageCount; i++) {
+      // Fetch TV shows from TMDB
+      const url = `https://api.themoviedb.org/3/discover/tv?api_key=${process.env.TMDB_API_KEY}&include_adult=false&include_null_first_air_dates=false&page=${i}&sort_by=first_air_date.desc&first_air_date.lte=${today}`;
+      const response = await axios.get(url);
+      const results = response.data.results;
+
+      results.forEach((show) => {
+        if (show.poster_path) {
+          series.push({
+            id: show.id,
+            title: show.name,
+            poster: `https://image.tmdb.org/t/p/w500${show.poster_path}`,
+            media_type: "tv"
+          });
+        }
+      });
+    }
+
+    res.render("search", {
+      title: "TV Shows",
+      items: series,
+      user: req.user,
+      nextPage: pageCount + 1,
+      isSeriesPage: true
+    });
+
+  } catch (err) {
+    console.log("Error getting series:", err.message);
+    res.render("search", {
+      title: "TV Shows",
+      items: [],
+      user: req.user,
+      error: "Something went wrong.",
+      nextPage: 3,
+      isSeriesPage: true
+    });
+  }
 });
+
 
 /* GET info page. */
 router.get('/info/:type/:id', async (req, res) => {

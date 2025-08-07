@@ -12,6 +12,14 @@
         {{/each}}
     </div>
 </div>
+{{#if isMoviesPage}}
 <div class="text-center mb-5">
-    <a href="/movies?page={{nextPage}}" type="button" class="btn btn-outline-light me-2">Load More</a>
+    <a href="/movies?page={{nextPage}}" class="btn btn-outline-light me-2">Load More</a>
 </div>
+{{/if}}
+
+{{#if isSeriesPage}}
+<div class="text-center mb-5">
+    <a href="/series?page={{nextPage}}" class="btn btn-outline-light me-2">Load More</a>
+</div>
+{{/if}}
