@@ -99,10 +99,25 @@ h6 {
   max-height: 90vh;
   object-fit: cover;
 }
-
-.carousel-caption {
-  bottom: 8rem;
+.carousel-item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.8));
+  z-index: 1;
 }
+.carousel-item img {
+  position: relative;
+  z-index: 0;
+}
+.carousel-caption {
+  bottom: 35%;
+  z-index: 2;
+}
+
 
 .content__shows {
   display: flex;
@@ -158,6 +173,25 @@ h6 {
 .content__shows div:hover .title-box {
   transform: translatey(0);
 }
+
+.carousel-item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.8));
+  z-index: 1;
+}
+.carousel-item img {
+  position: relative;
+  z-index: 0;
+}
+.carousel-caption {
+  z-index: 2;
+}
+
 
 /*-------------------Search-Movies-Series-Favourites------------------*/
 .content__shows {

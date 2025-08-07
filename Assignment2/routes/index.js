@@ -19,8 +19,61 @@ router.get("/contact", (req, res, next) => {
 });
 
 /* GET latest page. */
-router.get("/latest", (req, res, next) => {
-  res.render("latest", { title: "Latest", user: req.user });
+router.get("/latest", async (req, res) => {
+  try {
+    const trendingUrl = `https://api.themoviedb.org/3/trending/all/week?api_key=${process.env.TMDB_API_KEY}`;
+    const response = await axios.get(trendingUrl);
+    const results = response.data.results;
+
+    const items = [];
+    const carousel = [];
+
+    for (const item of results) {
+      if (!item.poster_path) continue;
+
+      const media_type = item.media_type === 'tv' ? 'tv' : 'movie';
+      const title = item.title || item.name;
+      const release_date = item.release_date || item.first_air_date;
+
+      if (new Date(release_date) > new Date()) continue;
+
+      const movieObj = {
+        id: item.id,
+        title,
+        poster: `https://image.tmdb.org/t/p/w780${item.poster_path}`,
+        media_type
+      };
+
+      items.push(movieObj);
+
+      if (carousel.length < 3) {
+        carousel.push({
+          ...movieObj,
+          backdrop: item.backdrop_path
+            ? `https://image.tmdb.org/t/p/original${item.backdrop_path}`
+            : `https://image.tmdb.org/t/p/original${item.poster_path}`,
+          overview: item.overview
+        });
+      }
+    }
+
+    res.render("latest", {
+      title: "Trending Now",
+      items,
+      carousel,
+      user: req.user
+    });
+
+  } catch (err) {
+    console.error("Error fetching trending content:", err.message);
+    res.render("latest", {
+      title: "Trending Now",
+      items: [],
+      carousel: [],
+      user: req.user,
+      error: "Something went wrong while fetching trending items."
+    });
+  }
 });
 
 /* GET movies page */
@@ -115,7 +168,6 @@ router.get("/series", async (req, res) => {
     });
   }
 });
-
 
 /* GET info page. */
 router.get('/info/:type/:id', async (req, res) => {
