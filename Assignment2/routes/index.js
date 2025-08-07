@@ -21,11 +21,48 @@ router.get("/latest", (req, res, next) => {
 });
 
 /* GET movies page */
-router.get("/movies", (req, res, next) => {
-  const movies = [
-    /* movie objects */
-  ]; // Replace with TMDB or mock data
-  res.render("search", { title: "Movies", items: movies, user: req.user });
+router.get("/movies", async (req, res) => {
+  const today = new Date().toISOString().split('T')[0];
+  const movies = [];
+
+  // Get pageCount from query, default to 3
+  const pageCount = parseInt(req.query.page) || 3;
+
+  try {
+    for (let i = 1; i <= pageCount; i++) {
+      const url = `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.TMDB_API_KEY}&include_adult=false&include_video=false&language=en-US&page=${i}&sort_by=release_date.desc&release_date.lte=${today}`;
+      const response = await axios.get(url);
+      const results = response.data.results;
+
+      results.forEach((movie) => {
+        if (movie.poster_path) {
+          movies.push({
+            id: movie.id,
+            title: movie.title,
+            poster: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
+            media_type: "movie"
+          });
+        }
+      });
+    }
+
+    res.render("search", {
+      title: "Movies",
+      items: movies,
+      user: req.user,
+      nextPage: pageCount + 3 
+    });
+
+  } catch (err) {
+    console.log("Error getting movies:", err.message);
+    res.render("search", {
+      title: "Movies",
+      items: [],
+      user: req.user,
+      error: "Something went wrong.",
+      nextPage: 3
+    });
+  }
 });
 
 /* GET series page */
@@ -40,7 +77,6 @@ router.get("/series", (req, res, next) => {
 router.get('/info/:type/:id', async (req, res) => {
   const { type, id: itemId } = req.params;
 
-  // Validate both parameters
   if (!itemId || !['movie', 'tv'].includes(type)) {
     return res.status(400).render('info', {
       title: 'Error',
@@ -58,9 +94,7 @@ router.get('/info/:type/:id', async (req, res) => {
 
     res.render('info', {
       title: item.title || item.name,
-      poster: item.poster_path
-        ? `https://image.tmdb.org/t/p/w500${item.poster_path}`
-        : '/images/placeholder.jpg',
+      poster: item.poster_path? `https://image.tmdb.org/t/p/w500${item.poster_path}` : '/images/placeholder.jpg',
       type: type === 'tv' ? 'TV Series' : 'Movie',
       genre: item.genres ? item.genres.map(g => g.name).join(', ') : 'Unknown',
       duration: item.runtime
