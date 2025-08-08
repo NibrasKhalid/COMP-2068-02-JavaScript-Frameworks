@@ -65,6 +65,7 @@ router.get("/latest", async (req, res) => {
       if (carousel.length < 3) {
         carousel.push({
           movieObj,
+          title,                     
           //uses backdrop instead of poster for the vertical carousel
           backdrop: item.backdrop_path
             ? `https://image.tmdb.org/t/p/original${item.backdrop_path}`

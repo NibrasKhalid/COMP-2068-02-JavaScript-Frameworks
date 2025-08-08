@@ -1,19 +1,19 @@
 <div class="container pb-5" style="max-width: 720px;">
-    <h1 class="mb-4">{{title}}</h1>
+    <h1 class="m-4">{{title}}</h1>
 
     <div class="card mb-4 bg-dark-purple">
         <div class="card-body">
-            <h5 class="card-title">Account</h5>
+            <h3 class="card-title">Account</h3>
             <p class="mb-1"><strong>Username:</strong> {{user.username}}</p>
-            <p class="mb-0"><strong>Favorites List:</strong> {{favCount}}</p>
             <p class="mb-1"><strong>Bio:</strong> {{user.myBio}}</p>
+            <p class="mb-0"><strong>Favorites List:</strong> {{favCount}}</p>
             <p class="mb-0"><strong>Favorite Genres:</strong> {{user.myGenre}}</p>
         </div>
     </div>
 
     <div class="card bg-dark-purple">
         <div class="card-body">
-            <h5 class="card-title">Profile Info</h5>
+            <h3 class="card-title">Profile Info</h3>
             <form action="/profile/update" method="POST">
                 <div class="mb-3">
                     <label class="form-label">Bio</label>
@@ -22,7 +22,8 @@
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Favorite Genre</label>
-                    <textarea name="myGenre" class="form-control" placeholder="e.g., Action, Comedy">{{user.myGenre}}</textarea>
+                    <textarea name="myGenre" rows="1" class="form-control"
+                        placeholder="e.g., Action, Comedy">{{user.myGenre}}</textarea>
                 </div>
                 <button type="submit" class="btn btn-warning">Update</button>
             </form>

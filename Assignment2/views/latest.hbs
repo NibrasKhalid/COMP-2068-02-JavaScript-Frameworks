@@ -1,7 +1,8 @@
 <div id="carouselExampleCaptions" class="carousel slide mb-5" data-bs-ride="carousel">
   <div class="carousel-indicators">
     {{#each carousel}}
-    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{@index}}" class="{{#if @first}}active{{/if}}" aria-current="{{#if @first}}true{{/if}}" aria-label="Slide"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{@index}}"
+      class="{{#if @first}}active{{/if}}" aria-current="{{#if @first}}true{{/if}}" aria-label="Slide"></button>
     {{/each}}
   </div>
   <div class="carousel-inner">
@@ -11,6 +12,9 @@
       <div class="carousel-caption d-none d-md-block">
         <h5>{{this.title}}</h5>
         <p>{{this.overview}}</p>
+        <a href="/info/{{movieObj.media_type}}/{{movieObj.id}}" type="button"
+          class="btn btn-outline-light me-2">Details</a>
+
       </div>
     </div>
     {{/each}}
@@ -26,16 +30,20 @@
 </div>
 
 <div class="container pb-5">
-    <h1 class="m-4 display-5 text-left">{{{title}}}</h1>
-    <div class="content__shows">
-        {{#each items}}
-        <a href="/info/{{media_type}}/{{id}}" class="card-link">
-            <div class="card-item">
-                <img src="{{this.poster}}" alt="Movie Poster" />
-                <div class="title-box"></div>
-                <div class="name">{{this.title}}</div>
-            </div>
-        </a>
-        {{/each}}
-    </div>
+  <div class="d-flex align-items-center">
+    <h1 class="mb-4 me-4 display-5 text-left ">{{{title}}}</h1>
+    <a href="/movies" type="button" class="btn btn-outline-light me-4 mb-2">Movies</a>
+    <a href="/series" type="button" class="btn btn-outline-light me-2 mb-2">Series</a>
+  </div>
+  <div class="content__shows">
+    {{#each items}}
+    <a href="/info/{{media_type}}/{{id}}" class="card-link">
+      <div class="card-item">
+        <img src="{{this.poster}}" alt="Movie Poster" />
+        <div class="title-box"></div>
+        <div class="name">{{this.title}}</div>
+      </div>
+    </a>
+    {{/each}}
+  </div>
 </div>
