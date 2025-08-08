@@ -15,7 +15,9 @@ const dataSchemaObject = {
             poster: String,
             media_type: String
         }
-    ]
+    ],
+    myBio: { type: String, default: "" },
+  myGenre: { type: String, default: "" }
 };
 const schema = mongoose.Schema(dataSchemaObject);
 schema.plugin(plm); // Adds username and password hashing functionality

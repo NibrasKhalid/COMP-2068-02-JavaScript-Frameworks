@@ -24,20 +24,25 @@ router.get("/", function (req, res, next) {
 router.get("/contact", (req, res, next) => {
   res.render("contact", { user: req.user });
 });
-
+      
+/* -------------------Used ChatGPT to write the carousel/trending logic -------------------*/
 /* GET latest page. */
 router.get("/latest", async (req, res) => {
   try {
+    // gets the trending data from TMDB api using api key and stores it in results
     const trendingUrl = `https://api.themoviedb.org/3/trending/all/week?api_key=${process.env.TMDB_API_KEY}`;
     const response = await axios.get(trendingUrl);
     const results = response.data.results;
 
+    // creating arrays for trending items and carousel items
     const items = [];
     const carousel = [];
 
+    // loops through results and removes the ones without posters
     for (const item of results) {
       if (!item.poster_path) continue;
 
+      // differentiates if its a movie or show then sets the fields accordingly
       const media_type = item.media_type === "tv" ? "tv" : "movie";
       const title = item.title || item.name;
       const release_date = item.release_date || item.first_air_date;
@@ -45,6 +50,7 @@ router.get("/latest", async (req, res) => {
       // Used ChatGPT to write the carousel/trending logic
       if (new Date(release_date) > new Date()) continue;
 
+      //makes a movie object storing the fields needed
       const movieObj = {
         id: item.id,
         title,
@@ -52,11 +58,14 @@ router.get("/latest", async (req, res) => {
         media_type,
       };
 
+      // adds the movie object info to the items array one by one for each movie
       items.push(movieObj);
 
+      // adds the movie items to the carousel as long as they are less than 3
       if (carousel.length < 3) {
         carousel.push({
           movieObj,
+          //uses backdrop instead of poster for the vertical carousel
           backdrop: item.backdrop_path
             ? `https://image.tmdb.org/t/p/original${item.backdrop_path}`
             : `https://image.tmdb.org/t/p/original${item.poster_path}`,
@@ -65,16 +74,19 @@ router.get("/latest", async (req, res) => {
       }
     }
 
+    // renders the Trending section by adding the results to the cards
     res.render("latest", {
       title: "Trending Now",
       items,
       carousel,
       user: req.user,
     });
+
   } catch (err) {
     console.error("Error fetching trending content:", err.message);
     res.render("latest", {
       title: "Trending Now",
+      // if there is an error, it will leave all fields in page empty
       items: [],
       carousel: [],
       user: req.user,
@@ -241,6 +253,18 @@ router.get("/favorites", isLoggedIn, (req, res, next) => {
   });
 });
 
+/* GET profile page */
+router.get("/profile", isLoggedIn, (req, res) => {
+  const favCount = (req.user.favorites || []).length;
+  res.render("profile", {
+    title: "My Profile",
+    user: req.user,
+    favCount,
+    myBio: req.user.myBio || "",
+    myGenre: req.user.myGenre || "",
+  });
+});
+
 /* ADD favorites */
 router.get("/favorites/add", isLoggedIn, async (req, res, next) => {
   const { id, title, poster, media_type } = req.query;
@@ -263,6 +287,16 @@ router.get("/favorites/delete", isLoggedIn, async (req, res, next) => {
     );
   await req.user.save();              
     return res.redirect("/favorites");
+});
+
+/* POST UPDATE profile */
+router.post("/profile/update", isLoggedIn, async (req, res) => {
+    const { myBio, myGenre } = req.body;
+    req.user.myBio = myBio;
+    req.user.myGenre = myGenre;
+    await req.user.save();
+    return res.redirect("/profile?msg=Saved");
+
 });
 
 /* GET login page. */
