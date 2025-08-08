@@ -5,8 +5,15 @@ var passport = require("passport");
 const Contact = require("../models/contact");
 var axios = require("axios");
 
-const today = new Date().toISOString().split('T')[0];
+const today = new Date().toISOString().split("T")[0];
 
+/* Checks if user is logged in */
+function isLoggedIn(req, res, next) {
+  if (req.user) {
+    return next();
+  }
+  res.redirect("/login");
+}
 
 /* GET home page. */
 router.get("/", function (req, res, next) {
@@ -31,28 +38,29 @@ router.get("/latest", async (req, res) => {
     for (const item of results) {
       if (!item.poster_path) continue;
 
-      const media_type = item.media_type === 'tv' ? 'tv' : 'movie';
+      const media_type = item.media_type === "tv" ? "tv" : "movie";
       const title = item.title || item.name;
       const release_date = item.release_date || item.first_air_date;
 
+      // Used ChatGPT to write the carousel/trending logic
       if (new Date(release_date) > new Date()) continue;
 
       const movieObj = {
         id: item.id,
         title,
         poster: `https://image.tmdb.org/t/p/w780${item.poster_path}`,
-        media_type
+        media_type,
       };
 
       items.push(movieObj);
 
       if (carousel.length < 3) {
         carousel.push({
-          ...movieObj,
+          movieObj,
           backdrop: item.backdrop_path
             ? `https://image.tmdb.org/t/p/original${item.backdrop_path}`
             : `https://image.tmdb.org/t/p/original${item.poster_path}`,
-          overview: item.overview
+          overview: item.overview,
         });
       }
     }
@@ -61,9 +69,8 @@ router.get("/latest", async (req, res) => {
       title: "Trending Now",
       items,
       carousel,
-      user: req.user
+      user: req.user,
     });
-
   } catch (err) {
     console.error("Error fetching trending content:", err.message);
     res.render("latest", {
@@ -71,7 +78,7 @@ router.get("/latest", async (req, res) => {
       items: [],
       carousel: [],
       user: req.user,
-      error: "Something went wrong while fetching trending items."
+      error: "Something went wrong while fetching trending items.",
     });
   }
 });
@@ -97,7 +104,7 @@ router.get("/movies", async (req, res) => {
             title: movie.title,
             poster: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
             media_type: "movie",
-            isMoviesPage: true
+            isMoviesPage: true,
           });
         }
       });
@@ -109,9 +116,8 @@ router.get("/movies", async (req, res) => {
       items: movies,
       user: req.user,
       nextPage: pageCount + 1,
-      isMoviesPage: true
+      isMoviesPage: true,
     });
-
   } catch (err) {
     console.log("Error getting movies:", err.message);
     res.render("search", {
@@ -119,7 +125,7 @@ router.get("/movies", async (req, res) => {
       items: [],
       user: req.user,
       error: "Something went wrong.",
-      nextPage: 3
+      nextPage: 3,
     });
   }
 });
@@ -142,7 +148,7 @@ router.get("/series", async (req, res) => {
             id: show.id,
             title: show.name,
             poster: `https://image.tmdb.org/t/p/w500${show.poster_path}`,
-            media_type: "tv"
+            media_type: "tv",
           });
         }
       });
@@ -153,9 +159,8 @@ router.get("/series", async (req, res) => {
       items: series,
       user: req.user,
       nextPage: pageCount + 1,
-      isSeriesPage: true
+      isSeriesPage: true,
     });
-
   } catch (err) {
     console.log("Error getting series:", err.message);
     res.render("search", {
@@ -164,68 +169,100 @@ router.get("/series", async (req, res) => {
       user: req.user,
       error: "Something went wrong.",
       nextPage: 3,
-      isSeriesPage: true
+      isSeriesPage: true,
     });
   }
 });
 
 /* GET info page. */
-router.get('/info/:type/:id', async (req, res) => {
+router.get("/info/:type/:id", async (req, res) => {
   const { type, id: itemId } = req.params;
 
-  if (!itemId || !['movie', 'tv'].includes(type)) {
-    return res.status(400).render('info', {
-      title: 'Error',
-      message: 'Invalid ID or type.',
-      user: req.user
+  if (!itemId || !["movie", "tv"].includes(type)) {
+    return res.status(400).render("info", {
+      title: "Error",
+      message: "Invalid ID or type.",
+      user: req.user,
     });
   }
 
   try {
-    const response = await axios.get(`https://api.themoviedb.org/3/${type}/${itemId}`, {
-      params: { api_key: process.env.TMDB_API_KEY }
-    });
+    const response = await axios.get(
+      `https://api.themoviedb.org/3/${type}/${itemId}`,
+      {
+        params: { api_key: process.env.TMDB_API_KEY },
+      }
+    );
 
     const item = response.data;
 
-    res.render('info', {
+    res.render("info", {
+      id: item.id, 
+      typeKey: type,
       title: item.title || item.name,
-      poster: item.poster_path? `https://image.tmdb.org/t/p/w500${item.poster_path}` : '/images/placeholder.jpg',
-      type: type === 'tv' ? 'TV Series' : 'Movie',
-      genre: item.genres ? item.genres.map(g => g.name).join(', ') : 'Unknown',
+      poster: item.poster_path
+        ? `https://image.tmdb.org/t/p/w500${item.poster_path}`
+        : "/images/placeholder.jpg",
+      type: type === "tv" ? "TV Series" : "Movie",
+      genre: item.genres
+        ? item.genres.map((g) => g.name).join(", ")
+        : "Unknown",
       duration: item.runtime
         ? `${item.runtime} min`
         : item.episode_run_time
         ? `${item.episode_run_time[0]} min`
-        : 'N/A',
-      description: item.overview || 'No description available',
-      releaseDate: item.release_date || item.first_air_date || 'Unknown',
-      rating: item.vote_average ? item.vote_average.toFixed(1) : 'N/A',
-      country: item.production_countries?.[0]?.name || item.origin_country?.[0] || 'Unknown',
-      user: req.user
+        : "N/A",
+      description: item.overview || "No description available",
+      releaseDate: item.release_date || item.first_air_date || "Unknown",
+      rating: item.vote_average ? item.vote_average.toFixed(1) : "N/A",
+      country:
+        item.production_countries?.[0]?.name ||
+        item.origin_country?.[0] ||
+        "Unknown",
+      user: req.user,
     });
-
   } catch (error) {
     console.error("Error fetching item details:", error.message);
-    res.status(500).render('info', {
-      title: 'Error',
-      message: 'Could not load item details.',
-      user: req.user
+    res.status(500).render("info", {
+      title: "Error",
+      message: "Could not load item details.",
+      user: req.user,
     });
   }
 });
 
 /* GET favorites page */
-router.get("/favorites", (req, res, next) => {
-  const favorites = [
-    /* user's favorite items */
-  ];
+router.get("/favorites", isLoggedIn, (req, res, next) => {
   res.render("search", {
     title: "Favorites",
-    items: favorites,
+    items: req.user.favorites || [], // now items have {id,title,poster,media_type}
     isFavoritesPage: true,
     user: req.user,
   });
+});
+
+/* ADD favorites */
+router.get("/favorites/add", isLoggedIn, async (req, res, next) => {
+  const { id, title, poster, media_type } = req.query;
+  if (!id || !title || !poster || !media_type) return res.redirect("/favorites");
+
+  req.user.favorites = req.user.favorites || [];
+  req.user.favorites.push({ id, title, poster, media_type });
+
+  await req.user.save();              
+    return res.redirect("/favorites");
+});
+
+/* DELETE favorites */
+router.get("/favorites/delete", isLoggedIn, async (req, res, next) => {
+  const { id } = req.query;
+    if (!id) return res.redirect("/favorites");
+
+    req.user.favorites = (req.user.favorites || []).filter(
+      (m) => String(m.id) !== String(id)
+    );
+  await req.user.save();              
+    return res.redirect("/favorites");
 });
 
 /* GET login page. */
@@ -316,17 +353,20 @@ router.get("/search", async (req, res, next) => {
     return res.render("search", {
       title: "Search",
       items: [],
-      user: req.user
+      user: req.user,
     });
   }
 
   try {
-    const response = await axios.get("https://api.themoviedb.org/3/search/multi", {
-      params: {
-        api_key: process.env.TMDB_API_KEY,
-        query: query,
-      },
-    });
+    const response = await axios.get(
+      "https://api.themoviedb.org/3/search/multi",
+      {
+        params: {
+          api_key: process.env.TMDB_API_KEY,
+          query: query,
+        },
+      }
+    );
 
     const items = response.data.results
       .filter(
@@ -338,7 +378,7 @@ router.get("/search", async (req, res, next) => {
         id: item.id,
         title: item.title || item.name,
         poster: `https://image.tmdb.org/t/p/w500${item.poster_path}`,
-        media_type: item.media_type === "tv" ? "tv" : "movie"
+        media_type: item.media_type === "tv" ? "tv" : "movie",
       }));
 
     res.render("search", {
@@ -346,7 +386,6 @@ router.get("/search", async (req, res, next) => {
       items,
       user: req.user,
     });
-
   } catch (error) {
     console.error("TMDB search error:", error);
     res.render("search", {

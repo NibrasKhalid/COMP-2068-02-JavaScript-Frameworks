@@ -1,4 +1,5 @@
 <html>
+
 <head>
   <title>{{title}}</title>
   <!-- Google Fonts -->
@@ -37,29 +38,31 @@
         <div class="collapse navbar-collapse" id="navbarContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item"><a class="nav-link px-2 text-white" href="/">Home</a></li>
-            <li class="nav-item"><a class="nav-link px-2 text-white" href="./latest">Latest</a></li>
-            <li class="nav-item"><a class="nav-link px-2 text-white" href="./movies">Movies</a></li>
-            <li class="nav-item"><a class="nav-link px-2 text-white" href="./series">Series</a></li>
-            <li class="nav-item"><a class="nav-link px-2 text-white" href="./favorites">Favorites</a></li>
-            <li class="nav-item"><a class="nav-link px-2 text-white" href="./contact">Contact</a></li>
+            <li class="nav-item"><a class="nav-link px-2 text-white" href="/latest">Latest</a></li>
+            <li class="nav-item"><a class="nav-link px-2 text-white" href="/movies">Movies</a></li>
+            <li class="nav-item"><a class="nav-link px-2 text-white" href="/series">Series</a></li>
+            {{#if user}}
+            <li class="nav-item"><a class="nav-link px-2 text-white" href="/favorites">Favorites</a></li>
+            {{/if}}
+            <li class="nav-item"><a class="nav-link px-2 text-white" href="/contact">Contact</a></li>
           </ul>
 
           <form class="d-flex mb-3 mb-lg-0 me-lg-3" role="search" action="/search" method="GET">
-            <input name="q" type="search" class="form-control form-control-dark poppins-extralight" placeholder="Search..."
-              aria-label="Search">
+            <input name="q" type="search" class="form-control form-control-dark poppins-extralight"
+              placeholder="Search..." aria-label="Search">
           </form>
           {{#if user}}
           {{!-- If user is logged in, show profile and logout options --}}
           <div class="text-end">
             <a href="#" type="button" class="btn text-white me-2">{{user.username}}</a>
-            <a href="./logout" type="button" class="btn btn-danger">Log Out</a>
+            <a href="/logout" type="button" class="btn btn-danger">Log Out</a>
           </div>
 
           {{!-- If user is not logged in, show login and signup buttons --}}
           {{else}}
           <div class="text-end">
-            <a href="./login" type="button" class="btn btn-outline-light me-2">Login</a>
-            <a href="./signup" type="button" class="btn btn-warning">Signup</a>
+            <a href="/login" type="button" class="btn btn-outline-light me-2">Login</a>
+            <a href="/signup" type="button" class="btn btn-warning">Signup</a>
           </div>
           {{/if}}
         </div>
@@ -73,8 +76,8 @@
     <footer class="py-3">
       <ul class="nav justify-content-center border-bottom pb-2 mb-2">
         <li class="nav-item"><a href="/" class="nav-link px-2 text-white">Home</a></li>
-        <li class="nav-item"><a href="./latest" class="nav-link px-2 text-white">Latest</a></li>
-        <li class="nav-item"><a href="./contact" class="nav-link px-2 text-white">Contact</a></li>
+        <li class="nav-item"><a href="/latest" class="nav-link px-2 text-white">Latest</a></li>
+        <li class="nav-item"><a href="/contact" class="nav-link px-2 text-white">Contact</a></li>
       </ul>
       <p class="text-center text-white">&copy; STREAM</p>
     </footer>

@@ -8,6 +8,14 @@ const dataSchemaObject = {
     oauthId: { type: String, unique: true }, // For OAuth integration
     oauthProvider: { type: String }, // e.g., 'github'
     created: { type: Date}, // Automatically set the creation date
+    favorites: [
+        {
+            id: String,          
+            title: String,
+            poster: String,
+            media_type: String
+        }
+    ]
 };
 const schema = mongoose.Schema(dataSchemaObject);
 schema.plugin(plm); // Adds username and password hashing functionality
