@@ -1,4 +1,4 @@
-# STREAM
+# Assignment 2 - STREAM
 
 STREAM is a Series and Movies streaming platform. It allows users to browse the latest content, 
 view movie details, and create a list of their favorite titles all in one website.
